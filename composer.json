@@ -1,0 +1,22 @@
+{
+    "name": "pfinal/storage",
+    "description": "storage",
+    "license": "MIT",
+    "homepage": "http://www.pfinal.cn",
+    "support": {
+        "source": "https://github.com/pfinal/storage"
+    },
+    "authors": [
+        {
+            "name": "Zou Yiliang"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "PFinal\\Storage\\": "src/"
+        }
+    }
+}
