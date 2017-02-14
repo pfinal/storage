@@ -23,7 +23,11 @@ class Local
      */
     public function put($key, $data)
     {
-        $size = file_put_contents($this->getFullName($key), $data, LOCK_EX);
+        $filename = $this->getFullName($key);
+        if (!file_exists(dirname($filename))) {
+            mkdir(dirname($filename), 0777, true);
+        }
+        $size = file_put_contents($filename, $data, LOCK_EX);
         return $size !== false;
     }
 
