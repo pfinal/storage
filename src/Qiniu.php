@@ -2,6 +2,7 @@
 
 namespace PFinal\Storage;
 
+use Qiniu\Storage\BucketManager;
 use Qiniu\Storage\UploadManager;
 use Qiniu\Auth;
 
@@ -59,4 +60,27 @@ class Qiniu
         }
         return $this->baseUrl . $key;
     }
+
+    public function rename($key, $newKey)
+    {
+        //初始化Auth状态：
+        $auth = new Auth($this->accessKey, $this->secretKey);
+
+        //初始化BucketManager
+        $bucketMgr = new BucketManager($auth);
+
+        //确保这个key在你空间中存在
+        $bucket = $this->bucketName;
+
+        //将文件从文件$key 改成文件名$newKey 可以在不同bucket移动
+        $err = $bucketMgr->move($bucket, $key, $bucket, $newKey);
+
+        if ($err !== null) {
+            //echo $error->message();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
