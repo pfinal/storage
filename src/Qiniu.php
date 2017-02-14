@@ -61,6 +61,13 @@ class Qiniu
         return $this->baseUrl . $key;
     }
 
+    /**
+     * 移动文件
+     *
+     * @param $key
+     * @param $newKey
+     * @return bool
+     */
     public function rename($key, $newKey)
     {
         //初始化Auth状态：

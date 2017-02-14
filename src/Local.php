@@ -45,6 +45,18 @@ class Local
     }
 
     /**
+     * 重命名
+     *
+     * @param $key
+     * @param $newKey
+     * @return bool
+     */
+    public function rename($key, $newKey)
+    {
+        return rename($this->getFullName($key), $this->getFullName($newKey));
+    }
+
+    /**
      * 完整文件名
      * @param $key
      * @return string
