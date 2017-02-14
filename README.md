@@ -12,11 +12,16 @@ composer require pfinal/storage
 
     请先 composer require qiniu/php-sdk
     
+* Ftp
+    
+    请先 composer league/flysystem
+    
 ```php
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+//7牛
 $config = array(
     'accessKey' => 'TOeV-fwwxsssf3s_45tCziKjRD9-bPyXUKjbuX7b',
     'secretKey' => 'pbHrgwwwp_wpClxeeGrYKLNdEhLd02Jrew3t5h',

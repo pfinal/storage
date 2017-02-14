@@ -6,7 +6,7 @@ use Qiniu\Storage\BucketManager;
 use Qiniu\Storage\UploadManager;
 use Qiniu\Auth;
 
-class Qiniu
+class Qiniu implements StorageInterface
 {
     protected $accessKey;
     protected $secretKey;

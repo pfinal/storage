@@ -2,7 +2,7 @@
 
 namespace PFinal\Storage;
 
-class Local
+class Local implements StorageInterface
 {
     protected $basePath;
     protected $baseUrl;
