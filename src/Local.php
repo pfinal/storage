@@ -53,7 +53,12 @@ class Local implements StorageInterface
      */
     public function rename($key, $newKey)
     {
-        return rename($this->getFullName($key), $this->getFullName($newKey));
+        $newFile = $this->getFullName($newKey);
+        if (!file_exists(dirname($newFile))) {
+            mkdir(dirname($newFile), 0777, true);
+        }
+
+        return rename($this->getFullName($key), $newFile);
     }
 
     /**
