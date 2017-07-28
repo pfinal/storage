@@ -36,6 +36,7 @@ public function delete($key);
 public function error();
 ```
 
+> 使用示例
 
 ```php
 <?php
