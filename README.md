@@ -19,7 +19,24 @@ composer require pfinal/storage
 * Ftp
     
     请先 composer league/flysystem
-    
+
+
+> 提供接口
+
+```
+//上传文件
+public function put($key, $data);
+//获取url
+public function url($key, $rule = null);
+//重命名
+public function rename($key, $newKey);
+//删除
+public function delete($key);
+//获取错误消息
+public function error();
+```
+
+
 ```php
 <?php
 
