@@ -96,7 +96,20 @@ class Ftp implements StorageInterface
      */
     public function delete($key)
     {
-        // TODO: Implement delete() method.
+        $config = [
+            'host' => $this->host,
+            'username' => $this->username,
+            'password' => $this->password,
+
+            'port' => $this->port,
+            'passive' => $this->passive,
+            'timeout' => $this->timeout,
+        ];
+        $adapter = new BaseFtp($config);
+        $fs = new Filesystem($adapter);
+
+        $bool = @$fs->delete($key);
+        return $bool;
     }
 
     /**

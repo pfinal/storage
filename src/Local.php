@@ -81,7 +81,7 @@ class Local implements StorageInterface
      */
     public function delete($key)
     {
-        // TODO: Implement delete() method.
+        return unlink($this->getFullName($key));
     }
 
     /**

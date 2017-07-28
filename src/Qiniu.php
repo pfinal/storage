@@ -13,6 +13,7 @@ class Qiniu implements StorageInterface
     protected $bucketName;
     protected $baseUrl;
     protected $separator = '-';
+    protected $error;
 
     public function __construct(array $config = array())
     {
@@ -37,7 +38,7 @@ class Qiniu implements StorageInterface
 
         //失败情况下ret为null
         if ($ret == null) {
-            //echo $error->message();
+            $this->error = $error->message();
             return false;
         } else {
             //echo $ret['hash'];  //FizFMFnR5n7w8DvaFDQ4__RRXnJV
@@ -83,7 +84,7 @@ class Qiniu implements StorageInterface
         $err = $bucketMgr->move($bucket, $key, $bucket, $newKey);
 
         if ($err !== null) {
-            //echo $error->message();
+            $this->error = $err->message();
             return false;
         } else {
             return true;
@@ -98,7 +99,23 @@ class Qiniu implements StorageInterface
      */
     public function delete($key)
     {
-        // TODO: Implement delete() method.
+        //初始化Auth状态：
+        $auth = new Auth($this->accessKey, $this->secretKey);
+
+        //初始化BucketManager
+        $bucketMgr = new BucketManager($auth);
+
+        //确保这个key在你空间中存在
+        $bucket = $this->bucketName;
+
+        $err = $bucketMgr->delete($bucket, $key);
+
+        if ($err !== null) {
+            $this->error = $err->message();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -108,6 +125,6 @@ class Qiniu implements StorageInterface
      */
     public function error()
     {
-        // TODO: Implement error() method.
+        return $this->error;
     }
 }
