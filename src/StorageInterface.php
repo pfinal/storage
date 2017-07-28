@@ -30,4 +30,19 @@ interface StorageInterface
      * @return bool
      */
     public function rename($key, $newKey);
+
+    /**
+     * 删除文件
+     *
+     * @param $key
+     * @return bool
+     */
+    public function delete($key);
+
+    /**
+     * 错误消息
+     *
+     * @return string
+     */
+    public function error();
 }

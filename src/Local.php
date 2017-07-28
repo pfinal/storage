@@ -72,4 +72,25 @@ class Local implements StorageInterface
 
         return rtrim($this->basePath, '/\\') . DIRECTORY_SEPARATOR . $key;
     }
+
+    /**
+     * 删除文件
+     *
+     * @param $key
+     * @return bool
+     */
+    public function delete($key)
+    {
+        // TODO: Implement delete() method.
+    }
+
+    /**
+     * 错误消息
+     *
+     * @return string
+     */
+    public function error()
+    {
+        // TODO: Implement error() method.
+    }
 }
