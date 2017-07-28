@@ -8,7 +8,7 @@ composer require pfinal/storage
 
 * 本地存储 Local
 
-* 阿里去OSS
+* 阿里云OSS
 
     请先 composer require aliyuncs/oss-sdk-php
     
