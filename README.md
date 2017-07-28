@@ -7,6 +7,10 @@ composer require pfinal/storage
 ```
 
 * 本地存储 Local
+
+* 阿里去OSS
+
+    请先 composer require aliyuncs/oss-sdk-php
     
 * 7牛存诸 Qiniu 
 
@@ -41,7 +45,6 @@ var_dump($qiniu->url('test/1.jpg', 'm'));
 
 
 //阿里云OSS
-//composer require "aliyuncs/oss-sdk-php": "^2.2"
 
 $config = [
     'accessKey' => 'your key',
