@@ -31,7 +31,32 @@ $config = array(
 );
 $qiniu = new \PFinal\Storage\Qiniu($config);
 $bool = $qiniu->put('test/1.jpg', file_get_contents('/Users/ethan/Pictures/1.jpg'));
-var_dump($bool);
+
+//原图url
 var_dump($qiniu->url('test/1.jpg'));
+
+//小图url 规则: "m"
 var_dump($qiniu->url('test/1.jpg', 'm'));
+
+
+
+//阿里云OSS
+//composer require "aliyuncs/oss-sdk-php": "^2.2"
+
+$config = [
+    'accessKey' => 'your key',
+    'secret' => 'your secret',
+    'endPoint' => 'oss-cn-shanghai.aliyuncs.com',
+    'bucket' => 'your bucket',
+];
+$oss = new \PFinal\Storage\AliOss($config);
+
+$bool = $oss->put('test.jpg', file_get_contents('/Users/ethan/Pictures/1.jpg'));
+
+//原图url
+echo $oss->url('test.jpg');
+
+//小图url 规则名称: "s"
+echo $oss->url('test.jpg', 's');
+
 ```

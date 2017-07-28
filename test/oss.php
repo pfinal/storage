@@ -1,5 +1,8 @@
 <?php
 
+
+//composer require "aliyuncs/oss-sdk-php": "^2.2"
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $config = [
