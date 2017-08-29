@@ -3,8 +3,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $config = array(
-    'accessKey' => 'eqk2ITAKUc67_s6RMKoUJgPZgijc_',
-    'secretKey' => 'vvc67_s6RMKoUJgUc67_sRMR',
+    'accessKey' => 'eqk2ITAKUc67_s6RMKoUJgPZgijc_a',
+    'secretKey' => 'vvc67_s6ddRMKoUJgUc67_sRMR',
     'bucketName' => 'test',
     'baseUrl' => 'http://oxxx32vf1.bkt.clouddn.com/',
     'separator' => '!',
@@ -28,6 +28,7 @@ $clientToken = $qiniu->getClientToken();
 
 <h2>普通表单上传</h2>
 <form method="post" action="http://upload.qiniu.com/" enctype="multipart/form-data">
+    <input name="key" type="hidden" value="<?= $clientToken['key'] ?>">
     <input name="token" type="hidden" value="<?= $clientToken['token'] ?>">
     <input name="file" type="file"/>
 
