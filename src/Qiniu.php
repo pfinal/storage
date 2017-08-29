@@ -127,4 +127,28 @@ class Qiniu implements StorageInterface
     {
         return $this->error;
     }
+
+    public function getClientToken($prefix = 'uploads/')
+    {
+        $key = $prefix . md5(uniqid('', true) . time() . rand(100000, 999999));
+
+        $policy = array(
+            'returnBody' =>
+                json_encode([
+                    "key" => '$(key)',
+                    "name" => '$(fname)',
+                    "size" => '$(fsize)',
+                    "mimeType" => '$(mimeType)',
+                    "etag" => '$(etag)',
+                    "width" => '$(imageInfo.width)',
+                    "height" => '$(imageInfo.height)',
+                ])
+        );
+
+        //初始化Auth状态：
+        $auth = new Auth($this->accessKey, $this->secretKey);
+        $token = $auth->uploadToken($this->bucketName, $key, 3600, $policy);
+
+        return array('key' => $key, 'token' => $token);
+    }
 }
