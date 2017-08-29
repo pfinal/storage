@@ -28,7 +28,7 @@ $clientToken = $qiniu->getClientToken();
 
 <h2>普通表单上传</h2>
 <form method="post" action="http://upload.qiniu.com/" enctype="multipart/form-data">
-    <input name="token" type="hidden" value="<?= $token ?>">
+    <input name="token" type="hidden" value="<?= $clientToken['token'] ?>">
     <input name="file" type="file"/>
 
     <input type="submit">
