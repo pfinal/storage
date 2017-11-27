@@ -62,6 +62,23 @@ class Local implements StorageInterface
     }
 
     /**
+     * 复制
+     *
+     * @param $key
+     * @param $newKey
+     * @return bool
+     */
+    public function copy($key, $newKey)
+    {
+        $newFile = $this->getFullName($newKey);
+        if (!file_exists(dirname($newFile))) {
+            mkdir(dirname($newFile), 0777, true);
+        }
+
+        return copy($this->getFullName($key), $newFile);
+    }
+
+    /**
      * 完整文件名
      * @param $key
      * @return string

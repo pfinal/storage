@@ -89,6 +89,30 @@ class Ftp implements StorageInterface
     }
 
     /**
+     * 复制文件
+     *
+     * @param $key
+     * @param $newKey
+     * @return bool
+     */
+    public function copy($key, $newKey)
+    {
+        $config = [
+            'host' => $this->host,
+            'username' => $this->username,
+            'password' => $this->password,
+
+            'port' => $this->port,
+            'passive' => $this->passive,
+            'timeout' => $this->timeout,
+        ];
+        $adapter = new BaseFtp($config);
+        $fs = new Filesystem($adapter);
+
+        return @$fs->copy($key, $newKey);
+    }
+
+    /**
      * 删除文件
      *
      * @param $key

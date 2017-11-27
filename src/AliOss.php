@@ -115,6 +115,28 @@ class AliOss implements StorageInterface
     }
 
     /**
+     * 复制文件
+     *
+     * @param $key
+     * @param $newKey
+     * @return bool
+     */
+    public function copy($key, $newKey)
+    {
+        $ossClient = new OssClient($this->accessKey, $this->secret, $this->endPoint);
+
+        try {
+            $ossClient->copyObject($this->bucket, $key, $this->bucket, $newKey);
+        } catch (OssException $e) {
+            $this->error = $e->getMessage();
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
      * 错误消息
      *
      * @return string

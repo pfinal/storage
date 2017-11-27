@@ -92,6 +92,35 @@ class Qiniu implements StorageInterface
     }
 
     /**
+     * 复制文件
+     *
+     * @param $key
+     * @param $newKey
+     * @return bool
+     */
+    public function copy($key, $newKey)
+    {
+        //初始化Auth状态：
+        $auth = new Auth($this->accessKey, $this->secretKey);
+
+        //初始化BucketManager
+        $bucketMgr = new BucketManager($auth);
+
+        //确保这个key在你空间中存在
+        $bucket = $this->bucketName;
+
+        $err = $bucketMgr->copy($bucket, $key, $bucket, $newKey);
+
+        if ($err !== null) {
+            $this->error = $err->message();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    /**
      * 删除文件
      *
      * @param $key

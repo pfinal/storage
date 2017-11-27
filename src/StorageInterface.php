@@ -32,6 +32,15 @@ interface StorageInterface
     public function rename($key, $newKey);
 
     /**
+     * 复制文件
+     *
+     * @param $key
+     * @param $newKey
+     * @return bool
+     */
+    public function copy($key, $newKey);
+
+    /**
      * 删除文件
      *
      * @param $key
