@@ -86,7 +86,9 @@ class AliOss implements StorageInterface
             $append = $this->separator . $rule;
         }
 
-        return 'http://' . $this->bucket . '.' . $this->endPoint . '/' . $key . $append;
+        $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
+
+        return $http . '://' . $this->bucket . '.' . $this->endPoint . '/' . $key . $append;
     }
 
     /**
