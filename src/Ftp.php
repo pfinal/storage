@@ -33,7 +33,7 @@ class Ftp implements StorageInterface
      */
     public function put($key, $data)
     {
-        $config = [
+        $config = array(
             'host' => $this->host,
             'username' => $this->username,
             'password' => $this->password,
@@ -41,7 +41,7 @@ class Ftp implements StorageInterface
             'port' => $this->port,
             'passive' => $this->passive,
             'timeout' => $this->timeout,
-        ];
+        );
         $adapter = new BaseFtp($config);
         $fs = new Filesystem($adapter);
 
@@ -72,7 +72,7 @@ class Ftp implements StorageInterface
      */
     public function rename($key, $newKey)
     {
-        $config = [
+        $config = array(
             'host' => $this->host,
             'username' => $this->username,
             'password' => $this->password,
@@ -80,7 +80,7 @@ class Ftp implements StorageInterface
             'port' => $this->port,
             'passive' => $this->passive,
             'timeout' => $this->timeout,
-        ];
+        );
         $adapter = new BaseFtp($config);
         $fs = new Filesystem($adapter);
 
@@ -97,7 +97,7 @@ class Ftp implements StorageInterface
      */
     public function copy($key, $newKey)
     {
-        $config = [
+        $config = array(
             'host' => $this->host,
             'username' => $this->username,
             'password' => $this->password,
@@ -105,7 +105,7 @@ class Ftp implements StorageInterface
             'port' => $this->port,
             'passive' => $this->passive,
             'timeout' => $this->timeout,
-        ];
+        );
         $adapter = new BaseFtp($config);
         $fs = new Filesystem($adapter);
 
@@ -120,7 +120,7 @@ class Ftp implements StorageInterface
      */
     public function delete($key)
     {
-        $config = [
+        $config = array(
             'host' => $this->host,
             'username' => $this->username,
             'password' => $this->password,
@@ -128,7 +128,7 @@ class Ftp implements StorageInterface
             'port' => $this->port,
             'passive' => $this->passive,
             'timeout' => $this->timeout,
-        ];
+        );
         $adapter = new BaseFtp($config);
         $fs = new Filesystem($adapter);
 

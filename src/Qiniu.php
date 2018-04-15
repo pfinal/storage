@@ -14,6 +14,7 @@ class Qiniu implements StorageInterface
     protected $baseUrl;
     protected $separator = '-';
     protected $error;
+    protected $basePath = '';
 
     public function __construct(array $config = array())
     {
@@ -31,6 +32,8 @@ class Qiniu implements StorageInterface
      */
     public function put($key, $data)
     {
+        $key = $this->basePath . $key;
+
         $upManager = new UploadManager();
         $auth = new Auth($this->accessKey, $this->secretKey);
         $token = $auth->uploadToken($this->bucketName);
@@ -56,6 +59,8 @@ class Qiniu implements StorageInterface
      */
     public function url($key, $rule = null)
     {
+        $key = $this->basePath . $key;
+
         if ($rule !== null) {
             $key = $key . $this->separator . $rule;
         }
@@ -71,6 +76,9 @@ class Qiniu implements StorageInterface
      */
     public function rename($key, $newKey)
     {
+        $key = $this->basePath . $key;
+        $newKey = $this->basePath . $newKey;
+
         //初始化Auth状态：
         $auth = new Auth($this->accessKey, $this->secretKey);
 
@@ -100,6 +108,9 @@ class Qiniu implements StorageInterface
      */
     public function copy($key, $newKey)
     {
+        $key = $this->basePath . $key;
+        $newKey = $this->basePath . $newKey;
+
         //初始化Auth状态：
         $auth = new Auth($this->accessKey, $this->secretKey);
 
@@ -128,6 +139,8 @@ class Qiniu implements StorageInterface
      */
     public function delete($key)
     {
+        $key = $this->basePath . $key;
+
         //初始化Auth状态：
         $auth = new Auth($this->accessKey, $this->secretKey);
 
@@ -161,9 +174,11 @@ class Qiniu implements StorageInterface
     {
         $key = $prefix . md5(uniqid('', true) . time() . rand(100000, 999999));
 
+        $key = $this->basePath . $key;
+
         $policy = array(
             'returnBody' =>
-                json_encode([
+                json_encode(array(
                     "key" => '$(key)',
                     "name" => '$(fname)',
                     "size" => '$(fsize)',
@@ -171,7 +186,7 @@ class Qiniu implements StorageInterface
                     "etag" => '$(etag)',
                     "width" => '$(imageInfo.width)',
                     "height" => '$(imageInfo.height)',
-                ])
+                ))
         );
 
         //初始化Auth状态：
