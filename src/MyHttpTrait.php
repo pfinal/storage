@@ -107,10 +107,10 @@ trait MyHttpTrait
     private function checkFilename($filename)
     {
         // 必须限定在baseDir目录内，不能出现 ..
-        // (\w+\/)* 目录可有可无
-        // \w+ 文件名必须有
+        // ([\w\-]+\/)* 目录可有可无  (字母 数字 下划线 中杠)
+        // [\w\-]+ 文件名必须有
         // (\.\w+)*  扩展名可有可无
-        if (!preg_match('/^(\w+\/)*\w+(\.\w+)*$/', $filename)) {
+        if (!preg_match('/^([\w\-]+\/)*[\w\-]+(\.\w+)*$/', $filename)) {
             throw new \Exception('filename error');
         }
     }

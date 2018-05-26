@@ -94,7 +94,7 @@ class MyHttp implements StorageInterface
         $res = $client->post($this->api, $this->appendSign(array(
             'action' => 'move',
             'key' => $key,
-            'newKey' => $key,
+            'newKey' => $newKey,
         )));
 
         $this->error = $res->getBody();
@@ -121,7 +121,7 @@ class MyHttp implements StorageInterface
         $res = $client->post($this->api, $this->appendSign(array(
             'action' => 'copy',
             'key' => $key,
-            'newKey' => $key,
+            'newKey' => $newKey,
         )));
 
         $this->error = $res->getBody();
