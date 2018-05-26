@@ -51,7 +51,7 @@ class MyHttp implements StorageInterface
         file_put_contents($tempFile, $data);
 
         $client = new Client();
-        $res = $client->file($this->api, 'file', $tempFile, $this->appendSign(['filename' => $key]));
+        $res = $client->file($this->api, 'file', $tempFile, $this->appendSign(array('filename' => $key)));
 
         unlink($tempFile);
 
