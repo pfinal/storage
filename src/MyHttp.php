@@ -13,7 +13,10 @@ class MyHttp implements StorageInterface
 
     protected $baseUrl;
 
-    //服务端参考 MyHttpTrait.php
+    /**
+     * @var string 上传文件的api地址 eg. http://www.example.com/api/upload
+     * 参考 MyHttpTrait.php
+     */
     protected $api;
 
 
