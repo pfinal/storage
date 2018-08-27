@@ -50,7 +50,8 @@ class MyHttp implements StorageInterface
      */
     public function put($key, $data)
     {
-        $tempFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(time(), true);
+        //$tempFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(time(), true);
+        $tempFile = tempnam(sys_get_temp_dir(), uniqid());
         file_put_contents($tempFile, $data);
 
         $client = new Client();
