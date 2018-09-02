@@ -39,7 +39,9 @@ class Local implements StorageInterface
      */
     public function url($key, $rule = null)
     {
-        //todo 处理rule
+        if ($rule != null) {
+            $key = $this->getThumbKey($key, $rule);
+        }
 
         return $this->baseUrl . $key;
     }
@@ -110,4 +112,69 @@ class Local implements StorageInterface
     {
         // TODO: Implement error() method.
     }
+
+    /**
+     * @param string $key "uploads/201809/02/xxx.jpg"
+     * @param string $rule "s"
+     * @return string "uploads/thumb/s/201809/02/xxx.jpg"
+     */
+    public function getThumbKey($key, $rule)
+    {
+        return preg_replace('/^uploads\//', 'uploads/thumb/' . $rule . '/', $key);
+    }
+
+    /**
+     * 生成缩略图文件
+     * @param string $key 最前面不要加斜线 示例: "uploads/201809/02/xxx.jpg"
+     * @param string $rule 需要生成的规格 示例: "s"
+     * @param array $allowRules 允许缩略图规格列表
+     * @return \Leaf\Response|\Symfony\Component\HttpFoundation\StreamedResponse
+     *
+     * //访问时动态生成缩略图
+     * //http://example.com/uploads/201703/07/2.jpg
+     * //http://example.com/uploads/thumb/m/201703/07/2.jpg
+     * Route::any('uploads/thumb/:rule/:month/:day/:file.:ext', function (\Leaf\Application $app, $month, $day, $rule, $file, $ext) {
+     *      $fullFileName = 'uploads/' . $month . '/' . $day . '/' . $file . '.' . $ext;
+     *      return $app['storage']->thumb($fullFileName, $rule);
+     * });
+     */
+    public function thumb($key, $rule, $allowRules = null)
+    {
+        if (empty($allowRules)) {
+            $allowRules = array(
+                's' => array('w' => 120, 'h' => 120, 'cut' => true),
+                'm' => array('w' => 400, 'h' => 400,),
+                'l' => array('w' => 800, 'h' => 800,),
+            );
+        }
+
+        if (!array_key_exists($rule, $allowRules)) {
+            return new \Leaf\Response('404 Not Found', 404);
+        }
+
+        $fullFileName = $this->getFullName($key);
+
+        $thumbnailKey = $this->getThumbKey($key, $rule);
+        $newFileName = $this->getFullName($thumbnailKey);
+
+        if (!file_exists($fullFileName)) {
+            return new \Leaf\Response('404 Not Found', 404);
+        }
+
+        if (isset($allowRules[$rule]['cut']) && $allowRules[$rule]['cut']) {
+            \Leaf\Image::thumbCut($fullFileName, $newFileName, $allowRules[$rule]['w'], $allowRules[$rule]['h']);
+        } else {
+            \Leaf\Image::resize($fullFileName, $newFileName, $allowRules[$rule]['w'], $allowRules[$rule]['h']);
+        }
+
+        $ext = ltrim(strtolower(strrchr($thumbnailKey, '.')), '.');
+
+        //$header = array('Content-type' => 'image/png');
+        $header = array('Content-type' => 'image/' . $ext);
+
+        return new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($newFileName) {
+            readfile($newFileName);
+        }, 200, $header);
+    }
+
 }
