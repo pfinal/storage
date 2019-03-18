@@ -100,6 +100,9 @@ class Local implements StorageInterface
      */
     public function delete($key)
     {
+        if (!file_exists($this->getFullName($key))) {
+            return true;
+        }
         return unlink($this->getFullName($key));
     }
 
