@@ -87,7 +87,6 @@ class AliOss implements StorageInterface
         }
 
         //$scheme = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
-
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $scheme = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']);
         } else {
