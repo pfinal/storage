@@ -86,9 +86,15 @@ class AliOss implements StorageInterface
             $append = $this->separator . $rule;
         }
 
-        $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
+        //$scheme = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
 
-        return $http . '://' . $this->bucket . '.' . $this->endPoint . '/' . $key . $append;
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            $scheme = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']);
+        } else {
+            $scheme = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
+        }
+
+        return $scheme . '://' . $this->bucket . '.' . $this->endPoint . '/' . $key . $append;
     }
 
     /**
