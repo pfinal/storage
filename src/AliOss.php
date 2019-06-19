@@ -20,6 +20,7 @@ class AliOss implements StorageInterface
     //图片处理规则分隔符
     protected $separator = '?x-oss-process=style/';
     protected $error;
+    protected $cdn; // static.example.com
 
     public function __construct(array $config = array())
     {
@@ -91,6 +92,10 @@ class AliOss implements StorageInterface
             $scheme = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']);
         } else {
             $scheme = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
+        }
+
+        if ($this->cdn != null) {
+            return $scheme . '://' . $this->cdn . '/' . $key . $append;
         }
 
         return $scheme . '://' . $this->bucket . '.' . $this->endPoint . '/' . $key . $append;
