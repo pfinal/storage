@@ -18,7 +18,7 @@ composer require pfinal/storage
     
 * Ftp
     
-    请先 composer league/flysystem
+    请先 composer require league/flysystem
 
 
 > 提供接口
@@ -61,15 +61,14 @@ var_dump($qiniu->url('test/1.jpg'));
 var_dump($qiniu->url('test/1.jpg', 'm'));
 
 
-
 //阿里云OSS
 
-$config = [
+$config = array(
     'accessKey' => 'your key',
     'secret' => 'your secret',
     'endPoint' => 'oss-cn-shanghai.aliyuncs.com',
     'bucket' => 'your bucket',
-];
+);
 $oss = new \PFinal\Storage\AliOss($config);
 
 $bool = $oss->put('test.jpg', file_get_contents('/Users/ethan/Pictures/1.jpg'));
