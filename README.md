@@ -14,7 +14,7 @@ composer require pfinal/storage
     
 * 7牛存诸 Qiniu 
 
-    请先 composer require qiniu/php-sdk
+    请先 composer require qiniu/php-sdk:7.1.*
     
 * Ftp
     
