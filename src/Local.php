@@ -145,7 +145,7 @@ class Local implements StorageInterface
     {
         if (empty($allowRules)) {
             $allowRules = array(
-                's' => array('w' => 120, 'h' => 120, 'cut' => true),
+                's' => array('w' => 250, 'h' => 250, 'cut' => true),
                 'm' => array('w' => 400, 'h' => 400,),
                 'l' => array('w' => 800, 'h' => 800,),
             );
@@ -179,7 +179,6 @@ class Local implements StorageInterface
             readfile($newFileName);
         }, 200, $header);
     }
-
 
 
 }
